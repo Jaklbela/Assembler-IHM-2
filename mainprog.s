@@ -18,25 +18,25 @@ is_palindrom:					# Метка функции is_palindrom:
 	mov	r11d, eax				# Кладем в r11d eax (То есть кладем в регистр-переменную значение размера, деленного на два)
 	mov	r12d, 0					# Обнуляем счетчик
 	mov	r12d, 0					# Обнуляем индекс (ind)
-	jmp	.L2					# Перемещаемся к метке /L2
-.L5:
-	mov	eax, DWORD PTR -28[rbp]
-	sub	eax, 2
-	mov	edx, r12d
-	sub	eax, edx
-	mov	r13d, eax
-	mov	eax, r12d
-	movsx	rdx, eax
-	mov	rax, QWORD PTR -24[rbp]
-	add	rax, rdx
-	movzx	edx, BYTE PTR [rax]
-	mov	eax, r13d
-	movsx	rcx, eax
-	mov	rax, QWORD PTR -24[rbp]
-	add	rax, rcx
-	movzx	eax, BYTE PTR [rax]
-	cmp	dl, al
-	je	.L3
+	jmp	.L2					# Перемещаемся к метке .L2
+.L5:						# Метка .L5
+	mov	eax, DWORD PTR -28[rbp]			# Переносим длину строки в eax
+	sub	eax, 2					# Вычитаем 2 из eax
+	mov	edx, r12d				# Переносим счетчик в edx
+	sub	eax, edx				# Вычитаем из eax счетчик (Теперь мы выполнили строку ind = size - 2 - i)
+	mov	r13d, eax				# Переносим полученное значение в индекс
+	mov	eax, r12d				# Переносим в eax значение счетчика
+	movsx	rdx, eax				# Перемещает eax в rdx, дополняя знаком (больший регистр)
+	mov	rax, QWORD PTR -24[rbp]			# Переносим массив символов (строку) в rax
+	add	rax, rdx				# Складываем rax и rdx
+	movzx	edx, BYTE PTR [rax]			# Переносим rax в edx 
+	mov	eax, r13d				# Переносим индекс в eax
+	movsx	rcx, eax				# Переносим eax в rcx
+	mov	rax, QWORD PTR -24[rbp]			# Переносим строку в rax
+	add	rax, rcx				# Складываем rax и rcx
+	movzx	eax, BYTE PTR [rax]			# Переносим rax в eax
+	cmp	dl, al					# Сравниваем dl и al
+	je	.L3					# 
 	mov	eax, 0
 	jmp	.L4
 .L3:
@@ -45,10 +45,10 @@ is_palindrom:					# Метка функции is_palindrom:
 	mov	r12d, eax
 .L2:						# метка .L2
 	mov	edx, r12d				# Переносим счетчик в регистр edx
-	mov	eax, r11d
-	cmp	edx, eax
-	jne	.L5
-	mov	eax, 1
+	mov	eax, r11d				# Переносим границу середины (переменная border в eax)
+	cmp	edx, eax				# Сравниваем счетчик и границу
+	jne	.L5					# Если не равны, переход к метке .L5
+	mov	eax, 1					# Увеличение счетчика на единицу
 .L4:
 	pop	r12
 	pop	r13
