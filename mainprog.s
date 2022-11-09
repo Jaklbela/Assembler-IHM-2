@@ -1,24 +1,24 @@
-	.intel_syntax noprefix
-	.text
-	.globl	is_palindrom
-	.type	is_palindrom, @function
-is_palindrom:
-	endbr64
-	push	rbp
-	mov	rbp, rsp
-	push	r13
-	push	r12
-	mov	QWORD PTR -24[rbp], rdi
-	mov	DWORD PTR -28[rbp], esi
-	mov	eax, DWORD PTR -28[rbp]
-	mov	edx, eax
-	shr	edx, 31
-	add	eax, edx
-	sar	eax
-	mov	r11d, eax
-	mov	r12d, 0
-	mov	r12d, 0
-	jmp	.L2
+	.intel_syntax noprefix				# Указание на синтаксис intel
+	.text						# Начало новой секции
+	.globl	is_palindrom				# Объявление имени is_palindrom
+	.type	is_palindrom, @function			# Указание, что это функция
+is_palindrom:					# Метка функции is_palindrom:
+	endbr64						# -
+	push	rbp					# Сохранили предыдущий rbp на стек
+	mov	rbp, rsp				# Вместо rbp записали rsp
+	push	r13					# Записали регистр r13 (индекс для сравнения элементов с конца массива)
+	push	r12					# Записали регистр r12 (счетчик i)
+	mov	QWORD PTR -24[rbp], rdi			# Передача в функцию массива char (нашей строки)
+	mov	DWORD PTR -28[rbp], esi			# Передача в функцию длины строки
+	mov	eax, DWORD PTR -28[rbp]			# eax = rbp[28] (Переносим размер в другой регистр)
+	mov	edx, eax				# edx = eax (Снова переносим размер в другой регистр)
+	shr	edx, 31					# Побитовый сдвиг размера вправо на 31
+	add	eax, edx				# Складываем eax и edx
+	sar	eax					# Побитовый сдвиг eax с сохранением знака (деление)
+	mov	r11d, eax				# Кладем в r11d eax (То есть кладем в регистр-переменную значение размера, деленного на два)
+	mov	r12d, 0					# Обнуляем счетчик
+	mov	r12d, 0					# Обнуляем индекс (ind)
+	jmp	.L2					# Перемещаемся к метке /L2
 .L5:
 	mov	eax, DWORD PTR -28[rbp]
 	sub	eax, 2
@@ -43,8 +43,8 @@ is_palindrom:
 	mov	eax, r12d
 	add	eax, 1
 	mov	r12d, eax
-.L2:
-	mov	edx, r12d
+.L2:						# метка .L2
+	mov	edx, r12d				# Переносим счетчик в регистр edx
 	mov	eax, r11d
 	cmp	edx, eax
 	jne	.L5
@@ -136,8 +136,3 @@ main:
 	pop	r15
 	pop	rbp
 	ret
-2:
-	.long	0x3
-3:
-	.align 8
-4:
