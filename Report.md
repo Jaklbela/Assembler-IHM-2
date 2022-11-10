@@ -203,8 +203,8 @@ main:						# Метка main
 
 | Входные данные  | mainprog.c      | mainprog.s      |
 |-----------------|:---------------:|:---------------:|
-| [4 5 8 0]       | [4 4 4 0]     | [4 4 4 0]     |
-| [13 1768 56 97 36 27 85 56 876]    | [13 334 56 97 36 27 85 56 334] | [13 334 56 97 36 27 85 56 334] |
-| [-1 17 0 -567 65 -43 15]| [-73 -73 -73 -567 -73 -73 -73]|[-73 -73 -73 -567 -73 -73 -73]|
+| assemblerrelbmessa       | It's palindrom!     | It's palindrom!     |
+| linuxunil    | It's palindrom!  | It's palindrom! |
+| dihsfsdhfksdfhksdah| It's not palindrom!|It's not palindrom!|
 
-Подтверждающие тесты скриншоты находятся в репозитории в файле Tests.jpg: 
+Подтверждающие тесты скриншоты находятся в репозитории в файле Tests.jpg: https://github.com/Jaklbela/Assembler-IHM-2/blob/main/Tests.jpg
